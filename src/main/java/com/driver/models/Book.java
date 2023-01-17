@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table
 public class Book {
 
     @Id
@@ -20,7 +21,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn
-    @JsonIgnoreProperties("books")
+    @JsonIgnoreProperties("booksWritten")
     private Author author;
 
     @ManyToOne
@@ -32,12 +33,9 @@ public class Book {
     @Column(columnDefinition = "TINYINT(1)")
     private boolean available;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("book")
     private List<Transaction> transactions;
-
-    public Book() {
-    }
 
     public Book(String name, Genre genre, Author author) {
         this.name = name;
@@ -70,12 +68,12 @@ public class Book {
         this.genre = genre;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public Card getCard() {
@@ -86,12 +84,12 @@ public class Book {
         this.card = card;
     }
 
-    public Author getAuthor() {
-        return author;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public List<Transaction> getTransactions() {
@@ -102,4 +100,6 @@ public class Book {
         this.transactions = transactions;
     }
 
+    public Book() {
+    }
 }

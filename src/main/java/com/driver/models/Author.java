@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table
 public class Author {
 
     @Id
@@ -19,18 +20,18 @@ public class Author {
     private int age;
     private String country;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("author")
     private List<Book> booksWritten;
-
-    public Author() {
-    }
 
     public Author(String name, String email, int age, String country) {
         this.name = name;
         this.email = email;
         this.age = age;
         this.country = country;
+    }
+
+    public Author() {
     }
 
     public int getId() {
@@ -47,6 +48,14 @@ public class Author {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getAge() {
@@ -71,13 +80,5 @@ public class Author {
 
     public void setBooksWritten(List<Book> booksWritten) {
         this.booksWritten = booksWritten;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

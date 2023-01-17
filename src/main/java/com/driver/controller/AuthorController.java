@@ -1,7 +1,7 @@
 package com.driver.controller;
 
-import com.driver.services.AuthorService;
 import com.driver.models.Author;
+import com.driver.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,9 @@ public class AuthorController {
     AuthorService authorService;
 
     @PostMapping("/")
-    public ResponseEntity createAuthor(@RequestBody Author author) {
+    public ResponseEntity<String> createAuthor(@RequestBody() Author author) {
 
         authorService.create(author);
-        return new ResponseEntity<>("the author is successfully added to the system", HttpStatus.CREATED);
+        return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 }
